@@ -1,12 +1,174 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
 <head>
 <title>Page Title</title>
-</head>
-<body>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-<h1>My Amazing Portfolio</h1>
-<p>My name's TENLEIGH..</p>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(180deg, #fafaf9 0%, #f5f1ed 50%, #f0ebe5 100%);
+    color: #2d2d2d;
+    padding: 50px 20px;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), filter 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+    transform-origin: center center;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 20%, rgba(232, 213, 216, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(232, 213, 216, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+body.page-transition-enter {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(16px);
+}
+
+body.page-transition-exit {
+    opacity: 0;
+    transform: scale(1.08);
+    filter: blur(16px);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.nav-links {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.nav-link,
+.back-btn {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 12px 24px;
+    background: #E8D5D8;
+    color: #5a5a5a;
+    text-decoration: none;
+    border-radius: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95em;
+    font-weight: 400;
+    transition: all 0.4s ease;
+    border: 2px solid #E8D5D8;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.nav-link:hover,
+.back-btn:hover {
+    background: #D8C5C8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232, 213, 216, 0.3);
+    color: #333;
+}
+
+h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5em;
+    color: #3a3a3a;
+    margin-bottom: 15px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+p {
+    font-size: 1.2em;
+    margin: 20px auto;
+    padding: 25px;
+    background: linear-gradient(135deg, #fff 0%, #f8f2ef 100%);
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    max-width: 700px;
+    text-align: center;
+    border: 2px solid #E8D5D8;
+    color: #4f4f4f;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 30px 15px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+
+    .nav-link,
+    .back-btn {
+        padding: 10px 18px;
+        font-size: 0.9em;
+    }
+}
+</style>
+</head>
+<body class="page-transition-enter">
+
+<div class="header">
+    <h1>My Amazing Portfolio</h1>
+</div>
+
+<nav class="nav-links">
+    <a href="graphics.html" class="nav-link">Graphics</a>
+    <a href="video.html" class="nav-link">Video</a>
+    <a href="audio.html" class="nav-link">Audio</a>
+</nav>
+
+<script>
+(function() {
+    const body = document.body;
+    const transitionDuration = 800;
+
+    function startExit() {
+        body.classList.add('page-transition-exit');
+    }
+
+    function initPageTransition() {
+        requestAnimationFrame(() => {
+            body.classList.remove('page-transition-enter');
+        });
+
+        document.querySelectorAll('a[href]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+
+            link.addEventListener('click', event => {
+                event.preventDefault();
+                startExit();
+                setTimeout(() => window.location.href = href, transitionDuration);
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPageTransition);
+    } else {
+        initPageTransition();
+    }
+})();
+</script>
+
+<p>My name's TENLEIGH</p>
 
 </body>
 </html>
